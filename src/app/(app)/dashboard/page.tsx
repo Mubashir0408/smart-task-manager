@@ -8,6 +8,7 @@ import { WelcomeBanner } from "@/components/dashboard/WelcomeBanner";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { TaskList } from "@/components/tasks/TaskList";
 import { TaskFormModal } from "@/components/tasks/TaskFormModal";
+import { TaskAnnotationModal } from "@/components/tasks/TaskAnnotationModal";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { Button } from "@/components/ui/Button";
 import type { Task, TaskInsert, TaskUpdate } from "@/types/task";
@@ -31,6 +32,7 @@ export default function DashboardPage() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [annotatingTask, setAnnotatingTask] = useState<Task | null>(null);
 
   const openCreateModal = () => {
     setEditingTask(null);
@@ -106,6 +108,7 @@ export default function DashboardPage() {
           onEdit={openEditModal}
           onDelete={removeTask}
           onStatusChange={changeStatus}
+          onAnnotate={setAnnotatingTask}
           onCreateClick={openCreateModal}
         />
       </div>
@@ -117,6 +120,10 @@ export default function DashboardPage() {
         onClose={() => setModalOpen(false)}
         onSubmit={handleSubmit}
       />
+
+      {annotatingTask && (
+        <TaskAnnotationModal task={annotatingTask} onClose={() => setAnnotatingTask(null)} />
+      )}
     </div>
   );
 }

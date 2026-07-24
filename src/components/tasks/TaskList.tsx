@@ -12,6 +12,7 @@ interface TaskListProps {
   onEdit: (task: Task) => void;
   onDelete: (id: string) => Promise<void>;
   onStatusChange: (id: string, status: TaskStatus) => void;
+  onAnnotate: (task: Task) => void;
   onCreateClick: () => void;
 }
 
@@ -23,6 +24,7 @@ export function TaskList({
   onEdit,
   onDelete,
   onStatusChange,
+  onAnnotate,
   onCreateClick,
 }: TaskListProps) {
   if (isLoading) {
@@ -59,6 +61,7 @@ export function TaskList({
           onEdit={onEdit}
           onDelete={onDelete}
           onStatusChange={onStatusChange}
+          onAnnotate={onAnnotate}
         />
       ))}
     </div>

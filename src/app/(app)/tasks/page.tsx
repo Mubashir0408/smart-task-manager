@@ -6,6 +6,7 @@ import { useTasks } from "@/hooks/useTasks";
 import { TaskFilters } from "@/components/tasks/TaskFilters";
 import { TaskList } from "@/components/tasks/TaskList";
 import { TaskFormModal } from "@/components/tasks/TaskFormModal";
+import { TaskAnnotationModal } from "@/components/tasks/TaskAnnotationModal";
 import { ErrorState } from "@/components/ui/ErrorState";
 import { Button } from "@/components/ui/Button";
 import type { Task, TaskInsert, TaskUpdate } from "@/types/task";
@@ -30,6 +31,7 @@ export default function TasksPage() {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [annotatingTask, setAnnotatingTask] = useState<Task | null>(null);
 
   const openCreateModal = () => {
     setEditingTask(null);
@@ -72,6 +74,7 @@ export default function TasksPage() {
           onEdit={openEditModal}
           onDelete={removeTask}
           onStatusChange={changeStatus}
+          onAnnotate={setAnnotatingTask}
           onCreateClick={openCreateModal}
         />
       )}
@@ -83,6 +86,10 @@ export default function TasksPage() {
         onClose={() => setModalOpen(false)}
         onSubmit={handleSubmit}
       />
+
+      {annotatingTask && (
+        <TaskAnnotationModal task={annotatingTask} onClose={() => setAnnotatingTask(null)} />
+      )}
     </div>
   );
 }

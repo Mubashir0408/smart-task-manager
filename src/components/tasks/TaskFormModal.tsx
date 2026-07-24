@@ -6,6 +6,7 @@ import { Input } from "../ui/Input";
 import { Textarea } from "../ui/Textarea";
 import { Select } from "../ui/Select";
 import { Button } from "../ui/Button";
+import { SignaturePad } from "../ui/SignaturePad";
 import { validateTaskForm, type TaskFormErrors, type TaskFormValues } from "@/utils/validation";
 import { toDateInputValue } from "@/utils/date";
 import type { Task, TaskInsert, TaskPriority, TaskStatus, TaskUpdate } from "@/types/task";
@@ -69,7 +70,12 @@ export function TaskFormModal({ open, task, isSubmitting, onClose, onSubmit }: T
   };
 
   return (
-    <Modal open={open} onClose={onClose} title={isEdit ? "Edit task" : "New task"}>
+    <Modal
+      open={open}
+      onClose={onClose}
+      title={isEdit ? "Edit task" : "New task"}
+      maxWidthClassName={isEdit ? "max-w-xl" : "max-w-lg"}
+    >
       <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
         <Input
           label="Title"
@@ -119,6 +125,11 @@ export function TaskFormModal({ open, task, isSubmitting, onClose, onSubmit }: T
             <option value="in_progress">In Progress</option>
             <option value="completed">Completed</option>
           </Select>
+        )}
+        {isEdit && (
+          <div className="border-t border-slate-200 pt-4">
+            <SignaturePad />
+          </div>
         )}
         <div className="mt-2 flex justify-end gap-3">
           <Button type="button" variant="secondary" onClick={onClose} disabled={isSubmitting}>

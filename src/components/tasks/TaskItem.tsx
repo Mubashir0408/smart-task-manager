@@ -15,9 +15,17 @@ interface TaskItemProps {
   onEdit: (task: Task) => void;
   onDelete: (id: string) => Promise<void>;
   onStatusChange: (id: string, status: TaskStatus) => void;
+  onAnnotate: (task: Task) => void;
 }
 
-export function TaskItem({ task, isMutating, onEdit, onDelete, onStatusChange }: TaskItemProps) {
+export function TaskItem({
+  task,
+  isMutating,
+  onEdit,
+  onDelete,
+  onStatusChange,
+  onAnnotate,
+}: TaskItemProps) {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const overdue = isOverdue(task.due_date, task.status);
@@ -63,6 +71,9 @@ export function TaskItem({ task, isMutating, onEdit, onDelete, onStatusChange }:
             <option value="in_progress">In Progress</option>
             <option value="completed">Completed</option>
           </Select>
+          <Button variant="secondary" size="sm" onClick={() => onAnnotate(task)}>
+            Annotate Image
+          </Button>
           <Button variant="secondary" size="sm" onClick={() => onEdit(task)}>
             Edit
           </Button>
