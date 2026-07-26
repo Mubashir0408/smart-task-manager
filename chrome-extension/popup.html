@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TaskFlow Quick Add</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="icons/icon48.png" alt="" class="header__logo" />
+      <div>
+        <h1 class="header__title">TaskFlow</h1>
+        <p class="header__subtitle">Quick Add</p>
+      </div>
+    </header>
+
+    <!-- Inline banner for success / error feedback -->
+    <div id="banner" class="banner" hidden></div>
+
+    <!-- Shown when there is no valid Supabase session -->
+    <section id="loginSection" class="section" hidden>
+      <form id="loginForm" novalidate>
+        <label class="field">
+          <span class="field__label">Email</span>
+          <input type="email" id="loginEmail" autocomplete="email" placeholder="you@example.com" />
+        </label>
+        <label class="field">
+          <span class="field__label">Password</span>
+          <input type="password" id="loginPassword" autocomplete="current-password" placeholder="••••••••" />
+        </label>
+        <button type="submit" id="loginSubmit" class="btn btn--primary">Sign In</button>
+        <p class="hint">Use your existing TaskFlow account credentials.</p>
+      </form>
+    </section>
+
+    <!-- Shown once signed in -->
+    <section id="appSection" class="section" hidden>
+      <div class="userRow">
+        <span id="userEmail" class="userRow__email"></span>
+        <button id="signOutBtn" type="button" class="linkBtn">Sign out</button>
+      </div>
+
+      <form id="taskForm" novalidate>
+        <label class="field">
+          <span class="field__label">Task Title</span>
+          <input type="text" id="taskTitle" maxlength="200" placeholder="e.g. Review pull request" />
+          <span class="field__error" id="titleError"></span>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Description</span>
+          <textarea id="taskDescription" rows="3" maxlength="2000" placeholder="Optional details"></textarea>
+        </label>
+
+        <label class="field">
+          <span class="field__label">Status</span>
+          <select id="taskStatus">
+            <option value="todo">Todo</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </label>
+
+        <button type="submit" id="createTaskBtn" class="btn btn--primary">
+          <span id="createTaskLabel">Create Task</span>
+          <span id="createTaskSpinner" class="spinner" hidden></span>
+        </button>
+      </form>
+
+      <div class="recent">
+        <div class="recent__header">
+          <h2 class="recent__title">Recent Tasks</h2>
+          <button id="refreshBtn" type="button" class="linkBtn" title="Refresh">⟳</button>
+        </div>
+        <ul id="recentList" class="recent__list"></ul>
+        <p id="recentEmpty" class="hint" hidden>No tasks yet — create your first one above.</p>
+      </div>
+
+      <button id="openDashboardBtn" type="button" class="btn btn--secondary">Open Dashboard</button>
+    </section>
+
+    <!-- Initial load spinner, shown while checking for a stored session -->
+    <div id="initLoading" class="initLoading">
+      <span class="spinner"></span>
+      <span>Loading…</span>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

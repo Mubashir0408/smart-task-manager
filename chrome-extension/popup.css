@@ -1,0 +1,327 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 380px;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #1f2937;
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header__logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.header__subtitle {
+  margin: 0;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.section {
+  padding: 16px;
+}
+
+.field {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.field__label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.field__error {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #dc2626;
+  min-height: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #fff;
+  color: #1f2937;
+  outline: none;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn--primary {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #4338ca;
+}
+
+.btn--secondary {
+  background: #f3f4f6;
+  color: #1f2937;
+  margin-top: 14px;
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: #e5e7eb;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.linkBtn {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.linkBtn:hover {
+  text-decoration: underline;
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.banner {
+  margin: 12px 16px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.banner--success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.banner--error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.userRow__email {
+  font-size: 12px;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 240px;
+}
+
+.recent {
+  margin-top: 18px;
+}
+
+.recent__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.recent__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.recent__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.recent__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #eef0f3;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.recent__item-title {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+.badge--todo {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.badge--in_progress {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge--completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.initLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 0;
+  color: #6b7280;
+}
+
+/* `display: flex` above otherwise beats the browser's built-in
+   `[hidden] { display: none }` rule (author styles always win over the
+   user-agent stylesheet, regardless of specificity) — without this,
+   setting the `hidden` attribute in JS has no visual effect and the
+   spinner stays on screen forever. */
+.initLoading[hidden] {
+  display: none;
+}
+
+.initLoading .spinner {
+  border-color: rgba(79, 70, 229, 0.25);
+  border-top-color: #4f46e5;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Recent-tasks skeleton: shown only when there's nothing cached to display
+   yet (first-ever load). A returning user's cached tasks render instantly
+   instead, with no skeleton/spinner at all. */
+.recent__item--skeleton {
+  background: #fafafa;
+}
+
+.skeleton-bar {
+  display: inline-block;
+  height: 10px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #eceef1 25%, #f6f7f8 37%, #eceef1 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.skeleton-bar--title {
+  width: 55%;
+}
+
+.skeleton-bar--badge {
+  width: 44px;
+  height: 14px;
+  border-radius: 999px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
