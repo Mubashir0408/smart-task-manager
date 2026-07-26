@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { validateAuthForm, type AuthFormErrors } from "@/utils/validation";
@@ -10,6 +10,7 @@ import { Button } from "../ui/Button";
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const supabase = useMemo(() => createClient(), []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<AuthFormErrors>({});
@@ -25,7 +26,6 @@ export function LoginForm() {
     if (Object.keys(validationErrors).length > 0) return;
 
     setIsSubmitting(true);
-    const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({
       email: email.trim(),
       password,
@@ -41,9 +41,14 @@ export function LoginForm() {
       return;
     }
 
+    // Navigating to a different route (the redirect target vs. this /login
+    // page) already triggers a fresh server render — middleware and
+    // ProtectedLayout re-run and pick up the session cookies
+    // signInWithPassword() just set. A follow-up router.refresh() would
+    // just repeat that same round trip a second time before the dashboard
+    // ever gets a chance to paint, roughly doubling perceived login time.
     const redirectTo = searchParams.get("redirectTo") || "/dashboard";
     router.push(redirectTo);
-    router.refresh();
   };
 
   return (

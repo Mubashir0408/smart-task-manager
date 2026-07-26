@@ -1,0 +1,31 @@
+<!doctype html>
+<!--
+  This file is NOT the app UI. It exists only because Tauri's config schema
+  requires `build.frontendDist` to point at a real directory of static
+  assets. The actual app is the existing Next.js frontend, loaded from
+  http://localhost:3000 at runtime (see `app.windows[0].url` and
+  `build.devUrl` in ../tauri.conf.json) — nothing here is rendered except
+  for a brief instant before that navigation happens, or if the app ever
+  fails to reach the Next.js server.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TaskFlow</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: #ffffff;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Starting TaskFlow…</p>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+[package]
+name = "taskflow-desktop"
+version = "0.1.0"
+description = "TaskFlow desktop wrapper — native window around the existing Next.js Task Manager"
+edition = "2021"
+rust-version = "1.77.2"
+
+# See https://v2.tauri.app/reference/config/ for tauri.conf.json.
+# See https://doc.rust-lang.org/cargo/reference/manifest.html for Cargo.toml.
+
+[lib]
+# `staticlib`/`cdylib` are required by Tauri (mobile targets link the Rust
+# code as a native library); `rlib` lets `main.rs` depend on this crate.
+name = "taskflow_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# Only the two Tauri crates every Tauri v2 app needs. No plugins and no
+# serde/serde_json — this app defines zero custom `#[tauri::command]`s and
+# does zero JS<->Rust IPC. The window just loads the existing Next.js app
+# from a URL (see src/lib.rs). In release builds, setup() spawns the
+# project's own `npm run start` script via plain `std::process::Command` —
+# no extra crate needed for that either.
+tauri = { version = "2", features = [] }
