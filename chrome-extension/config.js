@@ -21,5 +21,5 @@ const CONFIG = {
 
   // Where "Open Dashboard" and post-login links point. Use the deployed URL
   // in production, or http://localhost:3000 while running `npm run dev`.
-  DASHBOARD_URL: "http://localhost:3000",
+  DASHBOARD_URL: "https://smart-task-manager-jtgzjcfvt-mubashir-ejaz.vercel.app",
 };
