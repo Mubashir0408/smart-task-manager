@@ -15,6 +15,7 @@ import { supabase } from "../lib/supabase";
 import { TaskFormModal } from "../components/TaskFormModal";
 import { TaskItem } from "../components/TaskItem";
 import type { Task, TaskInsert, TaskUpdate } from "../types/task";
+import { colors, glassPanel, radius, spacing } from "../theme";
 
 export function TasksScreen() {
   const { session } = useAuth();
@@ -78,6 +79,9 @@ export function TasksScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={[styles.glow, styles.glowBlue]} pointerEvents="none" />
+      <View style={[styles.glow, styles.glowCyan]} pointerEvents="none" />
+
       <View style={styles.header}>
         <View>
           <Text style={styles.heading}>Your Tasks</Text>
@@ -98,19 +102,29 @@ export function TasksScreen() {
 
       {isLoading && tasks.length === 0 ? (
         <View style={styles.loadingBox}>
-          <ActivityIndicator size="large" color="#4f46e5" />
+          <ActivityIndicator size="large" color={colors.accentCyan} />
         </View>
       ) : (
         <FlatList
           data={tasks}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContent}
-          refreshControl={<RefreshControl refreshing={isLoading} onRefresh={reload} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={isLoading}
+              onRefresh={reload}
+              tintColor={colors.accentCyan}
+              colors={[colors.accentCyan]}
+            />
+          }
           renderItem={({ item }) => (
             <TaskItem task={item} onEdit={openEdit} onDelete={handleDelete} />
           )}
           ListEmptyComponent={
             <View style={styles.emptyBox}>
+              <View style={styles.emptyIcon}>
+                <Text style={styles.emptyGlyph}>✓</Text>
+              </View>
               <Text style={styles.emptyTitle}>No tasks yet</Text>
               <Text style={styles.emptyDescription}>Create your first task to get started.</Text>
             </View>
@@ -118,7 +132,7 @@ export function TasksScreen() {
         />
       )}
 
-      <TouchableOpacity style={styles.fab} onPress={openCreate}>
+      <TouchableOpacity style={styles.fab} onPress={openCreate} activeOpacity={0.85}>
         <Text style={styles.fabText}>+ New Task</Text>
       </TouchableOpacity>
 
@@ -136,44 +150,60 @@ export function TasksScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f9fafb",
+    backgroundColor: colors.background,
+  },
+  glow: {
+    position: "absolute",
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    opacity: 0.16,
+  },
+  glowBlue: {
+    backgroundColor: colors.accent,
+    top: -80,
+    left: -80,
+  },
+  glowCyan: {
+    backgroundColor: colors.accentCyan,
+    top: 200,
+    right: -100,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 12,
-    backgroundColor: "#fff",
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: "#eef0f3",
+    borderBottomColor: colors.glassBorder,
   },
   heading: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#1f2937",
+    color: colors.textPrimary,
   },
   email: {
     fontSize: 12,
-    color: "#6b7280",
+    color: colors.textSecondary,
     maxWidth: 220,
   },
   logout: {
-    color: "#4f46e5",
+    color: colors.accentCyan,
     fontWeight: "600",
     fontSize: 13,
   },
   errorBox: {
-    backgroundColor: "#fef2f2",
-    borderColor: "#fecaca",
+    backgroundColor: colors.dangerBg,
+    borderColor: "rgba(251,113,133,0.3)",
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: radius.sm,
     padding: 10,
-    margin: 16,
+    margin: spacing.lg,
   },
   errorText: {
-    color: "#b91c1c",
+    color: "#fecdd3",
     fontSize: 13,
   },
   loadingBox: {
@@ -182,39 +212,58 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   listContent: {
-    padding: 16,
-    paddingBottom: 90,
+    padding: spacing.lg,
+    paddingBottom: 100,
   },
   emptyBox: {
     alignItems: "center",
     paddingVertical: 60,
   },
+  emptyIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: radius.md,
+    backgroundColor: colors.accent,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: spacing.md,
+    shadowColor: colors.accentCyan,
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 6,
+  },
+  emptyGlyph: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "700",
+  },
   emptyTitle: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#1f2937",
+    color: colors.textPrimary,
   },
   emptyDescription: {
     fontSize: 13,
-    color: "#6b7280",
+    color: colors.textSecondary,
     marginTop: 4,
   },
   fab: {
     position: "absolute",
-    right: 20,
-    bottom: 24,
-    backgroundColor: "#4f46e5",
-    paddingHorizontal: 20,
+    right: spacing.xl,
+    bottom: spacing.xl,
+    backgroundColor: colors.accent,
+    paddingHorizontal: spacing.xl,
     paddingVertical: 14,
-    borderRadius: 999,
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
+    borderRadius: radius.pill,
+    shadowColor: colors.accentCyan,
+    shadowOpacity: 0.45,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 8,
   },
   fabText: {
-    color: "#fff",
+    color: "#04121a",
     fontWeight: "700",
   },
 });

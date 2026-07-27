@@ -1,22 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import type { Task } from "../types/task";
+import { colors, glassPanel, radius, spacing } from "../theme";
 
 const STATUS_LABELS: Record<string, string> = {
   todo: "Todo",
   in_progress: "In Progress",
   completed: "Completed",
-};
-
-const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
-  todo: { bg: "#e0e7ff", text: "#3730a3" },
-  in_progress: { bg: "#fef3c7", text: "#92400e" },
-  completed: { bg: "#d1fae5", text: "#065f46" },
-};
-
-const PRIORITY_COLORS: Record<string, { bg: string; text: string }> = {
-  low: { bg: "#f1f5f9", text: "#475569" },
-  medium: { bg: "#e0f2fe", text: "#0369a1" },
-  high: { bg: "#fee2e2", text: "#b91c1c" },
 };
 
 interface TaskItemProps {
@@ -26,11 +15,13 @@ interface TaskItemProps {
 }
 
 export function TaskItem({ task, onEdit, onDelete }: TaskItemProps) {
-  const statusColor = STATUS_COLORS[task.status];
-  const priorityColor = PRIORITY_COLORS[task.priority];
+  const statusColor = colors.status[task.status as keyof typeof colors.status];
+  const priorityColor = colors.priority[task.priority as keyof typeof colors.priority];
 
   return (
-    <TouchableOpacity style={styles.card} onPress={() => onEdit(task)} activeOpacity={0.7}>
+    <TouchableOpacity style={styles.card} onPress={() => onEdit(task)} activeOpacity={0.8}>
+      <View style={[styles.accentStrip, { backgroundColor: priorityColor.accent }]} />
+
       <View style={styles.row}>
         <Text style={styles.title} numberOfLines={1}>
           {task.title}
@@ -48,12 +39,12 @@ export function TaskItem({ task, onEdit, onDelete }: TaskItemProps) {
 
       <View style={styles.badgeRow}>
         <View style={[styles.badge, { backgroundColor: statusColor.bg }]}>
-          <Text style={[styles.badgeText, { color: statusColor.text }]}>
+          <Text style={[styles.badgeText, { color: statusColor.fg }]}>
             {STATUS_LABELS[task.status]}
           </Text>
         </View>
         <View style={[styles.badge, { backgroundColor: priorityColor.bg }]}>
-          <Text style={[styles.badgeText, { color: priorityColor.text }]}>
+          <Text style={[styles.badgeText, { color: priorityColor.fg }]}>
             {task.priority.toUpperCase()}
           </Text>
         </View>
@@ -64,44 +55,52 @@ export function TaskItem({ task, onEdit, onDelete }: TaskItemProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#eef0f3",
-    padding: 14,
-    marginBottom: 10,
+    ...glassPanel,
+    padding: spacing.md + 2,
+    marginBottom: spacing.md,
+    overflow: "hidden",
+  },
+  accentStrip: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginLeft: spacing.xs,
   },
   title: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#1f2937",
+    color: colors.textPrimary,
     flex: 1,
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   delete: {
-    color: "#dc2626",
+    color: colors.danger,
     fontSize: 12,
     fontWeight: "600",
   },
   description: {
     fontSize: 13,
-    color: "#6b7280",
+    color: colors.textSecondary,
     marginTop: 4,
+    marginLeft: spacing.xs,
   },
   badgeRow: {
     flexDirection: "row",
-    gap: 8,
-    marginTop: 10,
+    gap: spacing.sm,
+    marginTop: spacing.sm + 2,
+    marginLeft: spacing.xs,
   },
   badge: {
-    paddingHorizontal: 8,
+    paddingHorizontal: spacing.sm,
     paddingVertical: 3,
-    borderRadius: 999,
+    borderRadius: radius.pill,
   },
   badgeText: {
     fontSize: 10,

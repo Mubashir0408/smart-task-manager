@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { TASK_PRIORITIES, TASK_STATUSES, type Task, type TaskInsert, type TaskUpdate } from "../types/task";
+import { colors, radius, spacing } from "../theme";
 
 interface TaskFormModalProps {
   visible: boolean;
@@ -73,6 +74,7 @@ export function TaskFormModal({ visible, task, isSubmitting, onClose, onSubmit }
             value={title}
             onChangeText={setTitle}
             placeholder="e.g. Review pull request"
+            placeholderTextColor={colors.textMuted}
             maxLength={200}
           />
           {titleError && <Text style={styles.error}>{titleError}</Text>}
@@ -83,6 +85,7 @@ export function TaskFormModal({ visible, task, isSubmitting, onClose, onSubmit }
             value={description}
             onChangeText={setDescription}
             placeholder="Optional details"
+            placeholderTextColor={colors.textMuted}
             multiline
             numberOfLines={3}
           />
@@ -127,7 +130,7 @@ export function TaskFormModal({ visible, task, isSubmitting, onClose, onSubmit }
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <ActivityIndicator color="#fff" />
+                <ActivityIndicator color="#04121a" />
               ) : (
                 <Text style={styles.saveText}>Save</Text>
               )}
@@ -142,97 +145,112 @@ export function TaskFormModal({ visible, task, isSubmitting, onClose, onSubmit }
 const styles = StyleSheet.create({
   backdrop: {
     flex: 1,
-    backgroundColor: "rgba(15, 23, 42, 0.5)",
+    backgroundColor: "rgba(2, 6, 15, 0.75)",
     justifyContent: "flex-end",
   },
   sheet: {
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    padding: 20,
+    backgroundColor: colors.backgroundElevated,
+    borderTopLeftRadius: radius.xl,
+    borderTopRightRadius: radius.xl,
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
+    borderBottomWidth: 0,
+    padding: spacing.xl,
   },
   heading: {
     fontSize: 18,
     fontWeight: "700",
-    color: "#1f2937",
-    marginBottom: 16,
+    color: colors.textPrimary,
+    marginBottom: spacing.lg,
   },
   label: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#374151",
+    color: colors.textSecondary,
     marginBottom: 6,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#d1d5db",
-    borderRadius: 8,
+    borderColor: colors.glassBorder,
+    backgroundColor: "rgba(255,255,255,0.05)",
+    borderRadius: radius.sm,
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 15,
-    marginBottom: 14,
-    color: "#1f2937",
+    marginBottom: spacing.lg,
+    color: colors.textPrimary,
   },
   textArea: {
     minHeight: 70,
     textAlignVertical: "top",
   },
   error: {
-    color: "#dc2626",
+    color: colors.danger,
     fontSize: 12,
     marginTop: -10,
     marginBottom: 10,
   },
   chipRow: {
     flexDirection: "row",
-    gap: 8,
-    marginBottom: 14,
+    gap: spacing.sm,
+    marginBottom: spacing.lg,
   },
   chip: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 999,
-    backgroundColor: "#f3f4f6",
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.pill,
+    backgroundColor: "rgba(255,255,255,0.06)",
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
   },
   chipActive: {
-    backgroundColor: "#4f46e5",
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
   },
   chipText: {
     fontSize: 13,
-    color: "#374151",
+    color: colors.textSecondary,
     fontWeight: "500",
   },
   chipTextActive: {
-    color: "#fff",
+    color: "#04121a",
+    fontWeight: "700",
   },
   actionsRow: {
     flexDirection: "row",
-    gap: 12,
-    marginTop: 8,
+    gap: spacing.md,
+    marginTop: spacing.xs,
   },
   cancelButton: {
     flex: 1,
     paddingVertical: 12,
-    borderRadius: 8,
-    backgroundColor: "#f3f4f6",
+    borderRadius: radius.sm,
+    backgroundColor: "rgba(255,255,255,0.06)",
+    borderWidth: 1,
+    borderColor: colors.glassBorder,
     alignItems: "center",
   },
   cancelText: {
-    color: "#1f2937",
+    color: colors.textPrimary,
     fontWeight: "600",
   },
   saveButton: {
     flex: 1,
     paddingVertical: 12,
-    borderRadius: 8,
-    backgroundColor: "#4f46e5",
+    borderRadius: radius.sm,
+    backgroundColor: colors.accent,
     alignItems: "center",
+    shadowColor: colors.accentCyan,
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 6,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
   saveText: {
-    color: "#fff",
-    fontWeight: "600",
+    color: "#04121a",
+    fontWeight: "700",
   },
 });
