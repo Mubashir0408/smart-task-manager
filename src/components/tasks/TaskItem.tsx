@@ -8,6 +8,7 @@ import { formatDate, isOverdue } from "@/utils/date";
 import { Select } from "../ui/Select";
 import { Button } from "../ui/Button";
 import { ConfirmDialog } from "../ui/ConfirmDialog";
+import { cn } from "@/utils/cn";
 
 interface TaskItemProps {
   task: Task;
@@ -17,6 +18,12 @@ interface TaskItemProps {
   onStatusChange: (id: string, status: TaskStatus) => void;
   onAnnotate: (task: Task) => void;
 }
+
+const PRIORITY_ACCENT: Record<Task["priority"], string> = {
+  low: "before:bg-sky-400",
+  medium: "before:bg-violet-400",
+  high: "before:bg-rose-400",
+};
 
 export function TaskItem({
   task,
@@ -39,22 +46,28 @@ export function TaskItem({
 
   return (
     <>
-      <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+      <div
+        className={cn(
+          "glass-panel animate-fade-in relative flex flex-col gap-3 overflow-hidden rounded-2xl p-4 pl-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 sm:flex-row sm:items-center sm:justify-between",
+          "before:absolute before:inset-y-0 before:left-0 before:w-1 before:content-['']",
+          PRIORITY_ACCENT[task.priority]
+        )}
+      >
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h3 className="truncate font-medium text-slate-900">{task.title}</h3>
+            <h3 className="truncate font-medium text-white">{task.title}</h3>
             <StatusBadge status={task.status} />
             <PriorityBadge priority={task.priority} />
             {overdue && (
-              <span className="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-200">
+              <span className="inline-flex items-center rounded-full bg-rose-500/15 px-2.5 py-0.5 text-xs font-medium text-rose-300 ring-1 ring-inset ring-rose-400/25">
                 Overdue
               </span>
             )}
           </div>
           {task.description && (
-            <p className="mt-1 line-clamp-2 text-sm text-slate-500">{task.description}</p>
+            <p className="mt-1 line-clamp-2 text-sm text-slate-400">{task.description}</p>
           )}
-          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500">
             <span>Due {formatDate(task.due_date)}</span>
             <span>Created {formatDate(task.created_at)}</span>
           </div>

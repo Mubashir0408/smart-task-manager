@@ -13,18 +13,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANT_STYLES: Record<Variant, string> = {
   primary:
-    "bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:outline-indigo-600 disabled:bg-indigo-300",
+    "accent-gradient text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:brightness-110 focus-visible:outline-cyan-400 disabled:opacity-50 disabled:hover:brightness-100",
   secondary:
-    "bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 focus-visible:outline-slate-400 disabled:text-slate-400",
+    "glass-panel text-slate-100 hover:bg-white/10 hover:border-white/25 focus-visible:outline-cyan-400 disabled:opacity-40",
   danger:
-    "bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600 disabled:bg-red-300",
+    "bg-rose-500/90 text-white shadow-lg shadow-rose-500/20 hover:bg-rose-500 focus-visible:outline-rose-400 disabled:opacity-50",
   ghost:
-    "bg-transparent text-slate-600 hover:bg-slate-100 focus-visible:outline-slate-400 disabled:text-slate-300",
+    "bg-transparent text-slate-300 hover:bg-white/10 hover:text-white focus-visible:outline-cyan-400 disabled:opacity-40",
 };
 
 const SIZE_STYLES: Record<Size, string> = {
   sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
+  md: "px-4 py-2.5 text-sm",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -37,7 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed",
+          "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 ease-out active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:active:scale-100",
           VARIANT_STYLES[variant],
           SIZE_STYLES[size],
           className

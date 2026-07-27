@@ -30,7 +30,7 @@ export function Modal({ open, onClose, title, children, maxWidthClassName }: Mod
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm"
+        className="animate-fade-in absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
@@ -39,19 +39,19 @@ export function Modal({ open, onClose, title, children, maxWidthClassName }: Mod
         aria-modal="true"
         aria-labelledby="modal-title"
         className={cn(
-          "relative z-10 w-full max-h-[90vh] overflow-y-auto rounded-xl bg-white p-6 shadow-xl",
+          "glass-panel-strong animate-scale-in relative z-10 w-full max-h-[90vh] overflow-y-auto rounded-3xl p-6 sm:p-7",
           maxWidthClassName ?? "max-w-lg"
         )}
       >
-        <div className="mb-4 flex items-center justify-between">
-          <h2 id="modal-title" className="text-lg font-semibold text-slate-900">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 id="modal-title" className="text-lg font-semibold text-white">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            className="rounded-lg p-1.5 text-slate-400 transition hover:bg-white/10 hover:text-white"
           >
             &times;
           </button>

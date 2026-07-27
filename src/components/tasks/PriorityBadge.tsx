@@ -8,9 +8,9 @@ const PRIORITY_LABELS: Record<TaskPriority, string> = {
 };
 
 const PRIORITY_STYLES: Record<TaskPriority, string> = {
-  low: "bg-sky-50 text-sky-700 ring-sky-200",
-  medium: "bg-violet-50 text-violet-700 ring-violet-200",
-  high: "bg-red-50 text-red-700 ring-red-200",
+  low: "bg-sky-400/15 text-sky-300 ring-sky-400/25",
+  medium: "bg-violet-400/15 text-violet-300 ring-violet-400/25",
+  high: "bg-rose-400/15 text-rose-300 ring-rose-400/25",
 };
 
 export function PriorityBadge({ priority }: { priority: TaskPriority }) {

@@ -11,10 +11,10 @@ interface TaskFiltersProps {
 
 export function TaskFilters({ filters, onChange }: TaskFiltersProps) {
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="glass-panel animate-fade-in grid grid-cols-1 gap-3 rounded-2xl p-4 sm:grid-cols-2 lg:grid-cols-4">
       <Input
         aria-label="Search tasks by title"
-        placeholder="Search by title..."
+        placeholder="🔍 Search by title..."
         value={filters.search}
         onChange={(e) => onChange({ ...filters, search: e.target.value })}
       />

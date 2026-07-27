@@ -70,7 +70,10 @@
       <div class="recent">
         <div class="recent__header">
           <h2 class="recent__title">Recent Tasks</h2>
-          <button id="refreshBtn" type="button" class="linkBtn" title="Refresh">⟳</button>
+          <div class="recent__headerRight">
+            <span id="syncStatus" class="syncStatus" aria-live="polite"></span>
+            <button id="refreshBtn" type="button" class="linkBtn" title="Refresh">⟳</button>
+          </div>
         </div>
         <ul id="recentList" class="recent__list"></ul>
         <p id="recentEmpty" class="hint" hidden>No tasks yet — create your first one above.</p>

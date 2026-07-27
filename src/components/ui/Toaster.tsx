@@ -4,9 +4,9 @@ import { useToast } from "@/hooks/useToast";
 import { cn } from "@/utils/cn";
 
 const VARIANT_STYLES: Record<string, string> = {
-  success: "bg-emerald-50 text-emerald-800 border-emerald-200",
-  error: "bg-red-50 text-red-800 border-red-200",
-  info: "bg-blue-50 text-blue-800 border-blue-200",
+  success: "bg-emerald-500/15 text-emerald-100 border-emerald-400/30",
+  error: "bg-rose-500/15 text-rose-100 border-rose-400/30",
+  info: "bg-cyan-500/15 text-cyan-100 border-cyan-400/30",
 };
 
 export function Toaster() {
@@ -22,7 +22,7 @@ export function Toaster() {
           type="button"
           onClick={() => dismissToast(toast.id)}
           className={cn(
-            "flex items-start justify-between gap-3 rounded-lg border px-4 py-3 text-left text-sm shadow-lg transition hover:opacity-90",
+            "animate-slide-up flex items-start justify-between gap-3 rounded-2xl border px-4 py-3 text-left text-sm shadow-2xl backdrop-blur-xl transition hover:opacity-90",
             VARIANT_STYLES[toast.variant]
           )}
         >

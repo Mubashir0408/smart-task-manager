@@ -34,9 +34,9 @@ export function AnnotationToolbar({
   };
 
   return (
-    <div className="flex flex-wrap items-end gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="glass-panel flex flex-wrap items-end gap-4 rounded-2xl p-4">
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="brush-color" className="text-sm font-medium text-slate-700">
+        <label htmlFor="brush-color" className="text-sm font-medium text-slate-300">
           Color
         </label>
         <input
@@ -44,13 +44,13 @@ export function AnnotationToolbar({
           type="color"
           value={color}
           onChange={(e) => onColorChange(e.target.value)}
-          className="h-10 w-14 cursor-pointer rounded-lg border border-slate-300 p-1"
+          className="h-10 w-14 cursor-pointer rounded-lg border border-white/15 p-1"
           aria-label="Brush color"
         />
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="brush-size" className="text-sm font-medium text-slate-700">
+        <label htmlFor="brush-size" className="text-sm font-medium text-slate-300">
           Brush size: {brushSize}px
         </label>
         <input
@@ -60,7 +60,7 @@ export function AnnotationToolbar({
           max={50}
           value={brushSize}
           onChange={(e) => onBrushSizeChange(Number(e.target.value))}
-          className="w-40 accent-indigo-600"
+          className="w-40 accent-cyan-400"
           aria-label="Brush size"
         />
       </div>

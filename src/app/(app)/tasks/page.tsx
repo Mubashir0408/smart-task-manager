@@ -55,8 +55,8 @@ export default function TasksPage() {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-slate-900">Your tasks</h2>
-          <p className="text-sm text-slate-500">{allTasksCount} total</p>
+          <h2 className="text-xl font-semibold text-white">Your tasks</h2>
+          <p className="text-sm text-slate-400">{allTasksCount} total</p>
         </div>
         <Button onClick={openCreateModal}>+ New task</Button>
       </div>

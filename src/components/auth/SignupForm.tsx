@@ -53,7 +53,7 @@ export function SignupForm() {
     return (
       <div
         role="status"
-        className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800"
+        className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100"
       >
         Account created! Check <strong>{email}</strong> for a confirmation link, then log in.
       </div>
@@ -65,7 +65,7 @@ export function SignupForm() {
       {formError && (
         <div
           role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+          className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200"
         >
           {formError}
         </div>

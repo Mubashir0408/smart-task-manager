@@ -8,12 +8,12 @@ export function ErrorState({
   onRetry?: () => void;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-red-200 bg-red-50 px-6 py-12 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-2xl">
+    <div className="animate-fade-in flex flex-col items-center justify-center gap-3 rounded-3xl border border-rose-400/20 bg-rose-500/10 px-6 py-12 text-center backdrop-blur-xl">
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500/20 text-2xl">
         ⚠️
       </div>
-      <h3 className="text-base font-semibold text-red-900">Something went wrong</h3>
-      <p className="max-w-sm text-sm text-red-700">{message}</p>
+      <h3 className="text-base font-semibold text-rose-100">Something went wrong</h3>
+      <p className="max-w-sm text-sm text-rose-200/80">{message}</p>
       {onRetry && (
         <Button variant="secondary" size="sm" onClick={onRetry}>
           Try again

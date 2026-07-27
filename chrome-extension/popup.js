@@ -40,6 +40,7 @@ const els = {
   refreshBtn: document.getElementById("refreshBtn"),
   recentList: document.getElementById("recentList"),
   recentEmpty: document.getElementById("recentEmpty"),
+  syncStatus: document.getElementById("syncStatus"),
 
   openDashboardBtn: document.getElementById("openDashboardBtn"),
 };
@@ -65,6 +66,17 @@ function showBanner(type, message, autoHideMs = 0) {
 function hideBanner() {
   clearTimeout(bannerTimeout);
   els.banner.hidden = true;
+}
+
+// -- Sync status indicator -------------------------------------------------
+// Purely presentational reflection of the existing sync lifecycle (see
+// syncInBackground/loadRecentTasks below) — sets no state of its own.
+
+function setSyncStatus(state) {
+  if (!els.syncStatus) return;
+  const TEXT = { syncing: "Syncing…", synced: "Synced", error: "Sync failed" };
+  els.syncStatus.textContent = TEXT[state] ?? "";
+  els.syncStatus.className = state ? `syncStatus syncStatus--${state}` : "syncStatus";
 }
 
 // -- View switching -------------------------------------------------------
@@ -140,6 +152,7 @@ async function handleSignOut() {
   currentSession = null;
   els.recentList.innerHTML = "";
   hideBanner();
+  setSyncStatus(null);
   showLoginView();
 }
 
@@ -255,6 +268,7 @@ async function loadRecentTasks(session) {
     !!els.recentList.querySelector(".recent__item:not(.recent__item--skeleton)") ||
     !els.recentEmpty.hidden;
   if (!hasRealContent) renderSkeleton();
+  setSyncStatus("syncing");
 
   try {
     const activeSession = session ?? (await ensureFreshSession());
@@ -263,8 +277,10 @@ async function loadRecentTasks(session) {
     const tRender = performance.now();
     renderRecentTasks(tasks);
     perfLog("rendering (recent tasks list)", tRender);
+    setSyncStatus("synced");
   } catch (err) {
     console.error("[TaskFlow] Load recent tasks failed:", err.kind ?? "unknown", err.message);
+    setSyncStatus("error");
     // A background refresh failing shouldn't yank away perfectly good
     // cached data the user can already see — only surface a banner when
     // there was nothing real on screen to begin with.

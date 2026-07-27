@@ -30,7 +30,7 @@ export function TaskList({
   if (isLoading) {
     return (
       <div className="flex justify-center py-16">
-        <Spinner size="lg" className="text-indigo-500" />
+        <Spinner size="lg" className="text-cyan-400" />
       </div>
     );
   }

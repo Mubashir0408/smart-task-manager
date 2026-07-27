@@ -50,7 +50,7 @@ export function TaskAnnotationModal({ task, onClose }: TaskAnnotationModalProps)
       maxWidthClassName="max-w-4xl"
     >
       <div className="flex flex-col gap-4">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-400">
           Upload a screenshot or reference image for this task and draw directly on top of it.
           The image stays in your browser for this session only — it is not saved to the task or
           uploaded anywhere.

@@ -127,7 +127,7 @@ export function TaskFormModal({ open, task, isSubmitting, onClose, onSubmit }: T
           </Select>
         )}
         {isEdit && (
-          <div className="border-t border-slate-200 pt-4">
+          <div className="border-t border-white/10 pt-4">
             <SignaturePad />
           </div>
         )}

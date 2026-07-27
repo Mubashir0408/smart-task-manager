@@ -1,8 +1,28 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+ * TaskFlow — "Liquid Glass" design system
+ *
+ * A dark, glassmorphic theme: frosted translucent surfaces over a fixed,
+ * blurred aurora-gradient backdrop. Every visual token lives here so
+ * components only ever reference utility classes / CSS variables — no
+ * component file hardcodes a raw hex value.
+ * ------------------------------------------------------------------------- */
+
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #05070f;
+  --foreground: #eef2ff;
+
+  /* Glass surface: translucent panel + hairline border + soft shadow. */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-border-strong: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(2, 6, 23, 0.45), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+
+  /* Brand accent: blue -> cyan. */
+  --accent-from: #3b82f6;
+  --accent-to: #22d3ee;
 }
 
 @theme inline {
@@ -27,4 +47,155 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* -- Aurora background --------------------------------------------------
+ * Fixed, full-viewport backdrop: soft blurred gradient blobs (abstract
+ * "productivity" mood — blue/cyan) plus a faint grid, kept behind
+ * everything and never scrolled. Components layer glass panels on top;
+ * the blur here (not on the panels' own backdrop-filter) is what keeps
+ * the illustration "slightly blurred so UI remains readable."
+ */
+.app-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 60% at 15% 8%, rgba(59, 130, 246, 0.24), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 88% 12%, rgba(34, 211, 238, 0.18), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 20% 92%, rgba(99, 102, 241, 0.16), transparent 60%),
+    radial-gradient(ellipse 75% 60% at 92% 88%, rgba(14, 165, 233, 0.14), transparent 60%),
+    #05070f;
+}
+
+.app-aurora::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black, transparent 75%);
+}
+
+.app-aurora::after {
+  /* Faint abstract glyphs standing in for the "tasks / calendar / analytics
+     / clipboard / laptop" illustration brief — kept subtle and blurred. */
+  content: "✓  ▤  ◷  ▦  ⌗";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4vw;
+  font-size: min(14vw, 220px);
+  color: rgba(255, 255, 255, 0.025);
+  letter-spacing: 4vw;
+  filter: blur(2px);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* -- Glass surface utility -----------------------------------------------
+ * Apply alongside Tailwind spacing/radius utilities, e.g.
+ *   className="glass-panel rounded-3xl p-6"
+ */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+.glass-panel-strong {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+}
+
+.glass-inset {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.accent-gradient {
+  background-image: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+}
+
+.accent-text-gradient {
+  background-image: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.accent-glow {
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4), 0 8px 24px rgba(34, 211, 238, 0.25);
+}
+
+/* -- Motion --------------------------------------------------------------
+ * Small, reusable animation primitives — kept as plain CSS (not a JS
+ * animation library) so every surface can opt in without new dependencies.
+ */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-slide-up {
+    animation: none;
+  }
 }

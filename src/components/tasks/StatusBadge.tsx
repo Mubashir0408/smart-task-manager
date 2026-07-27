@@ -8,9 +8,9 @@ const STATUS_LABELS: Record<TaskStatus, string> = {
 };
 
 const STATUS_STYLES: Record<TaskStatus, string> = {
-  todo: "bg-slate-100 text-slate-700 ring-slate-200",
-  in_progress: "bg-amber-50 text-amber-700 ring-amber-200",
-  completed: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+  todo: "bg-slate-400/15 text-slate-300 ring-slate-400/25",
+  in_progress: "bg-amber-400/15 text-amber-300 ring-amber-400/25",
+  completed: "bg-emerald-400/15 text-emerald-300 ring-emerald-400/25",
 };
 
 export function StatusBadge({ status }: { status: TaskStatus }) {

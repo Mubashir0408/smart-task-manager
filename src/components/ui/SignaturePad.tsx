@@ -24,7 +24,7 @@ export function SignaturePad() {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-slate-700">Signature</span>
+        <span className="text-sm font-medium text-slate-300">Signature</span>
         <div className="flex gap-2">
           <Button
             type="button"
@@ -50,7 +50,7 @@ export function SignaturePad() {
       <div ref={containerRef} className="w-full">
         <canvas
           ref={canvasRef}
-          className="w-full touch-none rounded-lg border border-slate-300 bg-white shadow-sm"
+          className="w-full touch-none rounded-2xl border border-white/15 bg-white shadow-lg shadow-black/30"
           style={{ cursor: "crosshair" }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
@@ -59,7 +59,7 @@ export function SignaturePad() {
         />
       </div>
 
-      <p className="text-xs text-slate-400">
+      <p className="text-xs text-slate-500">
         Sign above with your mouse. Kept in your browser only — not saved with the task.
       </p>
     </div>
