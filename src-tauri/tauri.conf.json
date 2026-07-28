@@ -16,7 +16,7 @@
       {
         "label": "main",
         "title": "TaskFlow",
-        "url": "http://localhost:3000",
+        "url": "https://smart-task-manager-jtgzjcfvt-mubashir-ejaz.vercel.app",
         "width": 1280,
         "height": 800,
         "minWidth": 900,

@@ -19,6 +19,10 @@ export default function LoginPage() {
           <Link href="/signup" className="font-medium text-cyan-400 hover:text-cyan-300">
             Sign up
           </Link>
+          <br />
+          <Link href="/downloads" className="mt-1 inline-block text-slate-500 hover:text-slate-300">
+            Get the app on other platforms
+          </Link>
         </>
       }
     >
